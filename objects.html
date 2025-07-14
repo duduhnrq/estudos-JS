@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Objects</title>
+</head>
+<body>
+    <button id="btn" onclick="show()">Clique aqui</button>
+    <h3 id="demo"></h3>
+    
+    <script>
+        /*const car = {};
+
+        car.type = "Fiat";
+        car.model = "500";
+        car.color = "White";*/
+
+        const person = {
+            firstName: "John",
+            lastName: "Doe",
+            id: 5500,
+            fullName: function() {
+                return this.firstName + " " + this.lastName;
+            }
+        }
+
+        function show() {
+            document.getElementById("demo");
+            demo.innerHTML = person.fullName()
+        }
+        
+    </script>
+</body>
+</html>
