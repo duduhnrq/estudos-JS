@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Exercícios de Eventos - JavaScript</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    section {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 0;
+    }
+    button, input[type="text"], input[type="password"] {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Exercícios de Eventos - JavaScript</h1>
+
+  <!-- 1. Clique no botão -->
+  <section>
+    <h2>1. Clique no botão</h2>
+    <button onclick="alert('Botão clicado!')">Clique aqui</button>
+  </section>
+
+  <!-- 2. Mudar cor de fundo -->
+  <section>
+    <h2>2. Mudar cor de fundo</h2>
+    <button onclick="document.body.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16)">Mudar cor</button>
+  </section>
+
+  <!-- 3. Contador de cliques -->
+  <section>
+    <h2>3. Contador de cliques</h2>
+    <p>Cliques: <span id="contador">0</span></p>
+    <button onclick="incrementarContador()">Clique aqui</button>
+  </section>
+
+  <!-- 4. Mostrar/esconder senha -->
+  <section>
+    <h2>4. Mostrar/esconder senha</h2>
+    <input type="password" id="senha" placeholder="Digite sua senha"/>
+    <label>
+      <input type="checkbox" onclick="toggleSenha()"> Mostrar senha
+    </label>
+  </section>
+
+  <!-- 5. Tecla pressionada -->
+  <section>
+    <h2>5. Tecla pressionada</h2>
+    <input type="text" id="teclaInput" placeholder="Digite algo" onkeydown="mostrarTecla(event)" />
+    <p>Tecla pressionada: <span id="tecla"></span></p>
+  </section>
+
+  <!-- 6. Validação de formulário -->
+  <section>
+    <h2>6. Validação de formulário</h2>
+    <form onsubmit="return validarFormulario()">
+      <input type="text" id="nome" placeholder="Digite seu nome" />
+      <button type="submit">Enviar</button>
+      <p id="erro" style="color: red;"></p>
+    </form>
+  </section>
+
+  <!-- 7. Input dinâmico -->
+  <section>
+    <h2>7. Input dinâmico</h2>
+    <input type="text" oninput="atualizarTexto(this.value)" placeholder="Digite algo"/>
+    <p>Você digitou: <span id="textoDigitado"></span></p>
+  </section>
+
+  <!-- 8. Mouse sobre o elemento -->
+  <section>
+    <h2>8. Mouse sobre o elemento</h2>
+    <div id="caixa" style="width: 100%; height: 80px; background: lightgray;"
+      onmouseover="this.style.background='orange'"
+      onmouseout="this.style.background='lightgray'">
+      Passe o mouse aqui
+    </div>
+  </section>
+
+  <!-- 9. To-do List simples -->
+  <section>
+    <h2>9. To-do List</h2>
+    <input type="text" id="todoInput" placeholder="Novo item" />
+    <button onclick="adicionarItem()">Adicionar</button>
+    <ul id="todoList"></ul>
+  </section>
+
+  <!-- 10. Desabilitar botão por 3s -->
+  <section>
+    <h2>10. Desabilitar botão por 3 segundos</h2>
+    <button id="botaoTemporario" onclick="desabilitarPor3s(this)">Clique para desativar</button>
+  </section>
+
+  <script>
+    // 3. Contador de cliques
+    let contador = 0;
+    function incrementarContador() {
+        contador++;
+        document.getElementById("contador").innerText = contador;
+    }
+
+    // 4. Mostrar/esconder senha
+    function toggleSenha() {
+        const senha = document.getElementById("senha");
+        senha.type = senha.type === 'password' ? 'text' : 'password';
+    }
+
+    // 5. Tecla pressionada
+    function mostrarTecla(e) {
+        document.getElementById("tecla").innerText = e.key;
+    }
+
+    // 6. Validar formulário
+    function validarFormulario() {
+        let nome = document.getElementById("nome").value;
+        if (nome == '') {
+            document.getElementById("erro").innerText = "O nome não pode estar vazio.";
+            return false;
+        } else {
+            document.getElementById("erro").innerText = "";
+            return true;
+        }
+    }
+
+    // 7. Input dinâmico
+    function atualizarTexto(texto) {
+        document.getElementById("textoDigitado").innerText = texto;
+    }
+
+    // 9. To-Do List
+    function adicionarItem() {
+      const input = document.getElementById('todoInput');
+      const texto = input.value.trim();
+      if (texto !== '') {
+        const li = document.createElement('li');
+        li.textContent = texto;
+        li.onclick = () => li.remove();
+        document.getElementById('todoList').appendChild(li);
+        input.value = '';
+      }
+    }
+
+    // 10. Desabilitar botão por 3s
+    function desabilitarPor3s(botao) {
+      botao.disabled = true;
+      botao.innerText = 'Aguarde...';
+      setTimeout(() => {
+        botao.disabled = false;
+        botao.innerText = 'Clique para desativar';
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
